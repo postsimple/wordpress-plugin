@@ -151,17 +151,17 @@ class PostSimple_WordPress_Integration {
             return;
         }
 
-        // Check if post is published or scheduled (publicly accessible)
+        // Check if post is published (publicly accessible)
         $post_status = get_post_status($post->ID);
         $permalink = get_permalink($post->ID);
 
-        if ($post_status !== 'publish' && $post_status !== 'future') {
+        if ($post_status !== 'publish') {
             ?>
             <div style="padding: 10px; margin: 10px 0; border-left: 4px solid #dba617; background: #fcf9e8;">
                 <strong>Publiceer eerst je post</strong>
                 <p style="margin: 8px 0 0 0; color: #1d2327;">
                     PostSimple heeft een publiekelijk bereikbare URL nodig om de inhoud te kunnen analyseren.
-                    Publiceer of plan deze post om naar PostSimple te kunnen verzenden.
+                    Publiceer deze post om naar PostSimple te kunnen verzenden.
                 </p>
             </div>
             <?php
