@@ -302,14 +302,16 @@ class PostSimple_WordPress_Integration {
         
         // Check response status
         if ($status_code !== 200) {
-            $error_message = 'Fout bij verzenden naar PostSimple.';
-            
+            $error_message = 'Fout bij verzenden naar PostSimple (HTTP ' . $status_code . ').';
+
             if (isset($data['message'])) {
                 $error_message .= ' ' . $data['message'];
             } elseif (isset($data['error'])) {
                 $error_message .= ' ' . $data['error'];
+            } elseif (!empty($body)) {
+                $error_message .= ' Response: ' . substr($body, 0, 200);
             }
-            
+
             wp_send_json_error(array('message' => $error_message));
             return;
         }
