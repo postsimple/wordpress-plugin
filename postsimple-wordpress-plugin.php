@@ -301,7 +301,7 @@ class PostSimple_WordPress_Integration {
         $data = json_decode($body, true);
         
         // Check response status
-        if ($status_code !== 200) {
+        if ($status_code !== 200 && $status_code !== 201) {
             $error_message = 'Fout bij verzenden naar PostSimple (HTTP ' . $status_code . ').';
 
             if (isset($data['message'])) {
