@@ -151,15 +151,19 @@ class PostSimple_WordPress_Integration {
             return;
         }
 
-        // Check if post is published or has a permalink
+        // Check if post is published or scheduled (publicly accessible)
         $post_status = get_post_status($post->ID);
         $permalink = get_permalink($post->ID);
 
-        if ($post_status !== 'publish' && $post_status !== 'future' && $post_status !== 'draft' && $post_status !== 'pending') {
+        if ($post_status !== 'publish' && $post_status !== 'future') {
             ?>
-            <p style="color: #d63638;">
-                Deze post moet minimaal een concept zijn om naar PostSimple te kunnen verzenden.
-            </p>
+            <div style="padding: 10px; margin: 10px 0; border-left: 4px solid #dba617; background: #fcf9e8;">
+                <strong>Publiceer eerst je post</strong>
+                <p style="margin: 8px 0 0 0; color: #1d2327;">
+                    PostSimple heeft een publiekelijk bereikbare URL nodig om de inhoud te kunnen analyseren.
+                    Publiceer of plan deze post om naar PostSimple te kunnen verzenden.
+                </p>
+            </div>
             <?php
             return;
         }
