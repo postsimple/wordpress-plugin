@@ -140,21 +140,21 @@ class PostSimple_WordPress_Integration {
      */
     public function render_meta_box($post) {
         $api_key = get_option('postsimple_api_key');
-        
+
         if (empty($api_key)) {
             ?>
             <p style="color: #d63638;">
-                <strong>Let op:</strong> Stel eerst je PostSimple API key in bij 
+                <strong>Let op:</strong> Stel eerst je PostSimple API key in bij
                 <a href="<?php echo admin_url('options-general.php?page=postsimple-settings'); ?>">Instellingen</a>.
             </p>
             <?php
             return;
         }
-        
+
         // Check if post is published or has a permalink
         $post_status = get_post_status($post->ID);
         $permalink = get_permalink($post->ID);
-        
+
         if ($post_status !== 'publish' && $post_status !== 'future' && $post_status !== 'draft' && $post_status !== 'pending') {
             ?>
             <p style="color: #d63638;">
@@ -163,46 +163,87 @@ class PostSimple_WordPress_Integration {
             <?php
             return;
         }
-        
+
+        // Check if already sent to PostSimple
+        $batch_id = get_post_meta($post->ID, '_postsimple_batch_id', true);
+        $postsimple_url = $this->postsimple_app_url . '?batch=' . $batch_id;
+
+        if (!empty($batch_id)) {
+            ?>
+            <div id="postsimple-meta-box-content">
+                <p style="padding: 10px; margin: 10px 0; border-left: 4px solid #00a32a; background: #f0f6fc;">
+                    <strong>✓ Verzonden naar PostSimple</strong>
+                </p>
+
+                <a
+                    href="<?php echo esc_url($postsimple_url); ?>"
+                    target="_blank"
+                    class="button button-primary button-large"
+                    style="width: 100%; text-align: center;"
+                >
+                    <span class="dashicons dashicons-external" style="margin-top: 3px;"></span>
+                    Bekijk op PostSimple
+                </a>
+            </div>
+            <?php
+            return;
+        }
+
         wp_nonce_field('postsimple_send_post', 'postsimple_nonce');
         ?>
-        
+
         <div id="postsimple-meta-box-content">
             <p>
                 Verzend deze post naar PostSimple om automatisch social media content te genereren.
             </p>
-            
+
             <p>
                 <strong>Titel:</strong> <?php echo esc_html(get_the_title($post->ID)); ?>
             </p>
-            
+
             <p>
                 <strong>URL:</strong> <?php echo esc_html($permalink); ?>
             </p>
-            
+
             <div id="postsimple-status-message" style="display: none; padding: 10px; margin: 10px 0; border-left: 4px solid #00a32a; background: #f0f6fc;"></div>
-            
+
             <div id="postsimple-error-message" style="display: none; padding: 10px; margin: 10px 0; border-left: 4px solid #d63638; background: #fcf0f1; color: #d63638;"></div>
-            
-            <button 
-                type="button" 
-                id="postsimple-send-button" 
-                class="button button-primary button-large" 
-                style="width: 100%;"
-                data-post-id="<?php echo esc_attr($post->ID); ?>"
-            >
-                <span class="dashicons dashicons-share" style="margin-top: 3px;"></span> 
-                Verzend naar PostSimple
-            </button>
-            
-            <div id="postsimple-loading" style="display: none; text-align: center; margin-top: 10px;">
-                <span class="spinner is-active" style="float: none; margin: 0;"></span>
-                <p>Bezig met verzenden...</p>
+
+            <div id="postsimple-form">
+                <button
+                    type="button"
+                    id="postsimple-send-button"
+                    class="button button-primary button-large"
+                    style="width: 100%;"
+                    data-post-id="<?php echo esc_attr($post->ID); ?>"
+                >
+                    <span class="dashicons dashicons-share" style="margin-top: 3px;"></span>
+                    Verzend naar PostSimple
+                </button>
+
+                <div id="postsimple-loading" style="display: none; text-align: center; margin-top: 10px;">
+                    <span class="spinner is-active" style="float: none; margin: 0;"></span>
+                    <p>Bezig met verzenden...</p>
+                </div>
+            </div>
+
+            <div id="postsimple-success-link" style="display: none;">
+                <a
+                    id="postsimple-view-link"
+                    href="#"
+                    target="_blank"
+                    class="button button-primary button-large"
+                    style="width: 100%; text-align: center;"
+                >
+                    <span class="dashicons dashicons-external" style="margin-top: 3px;"></span>
+                    Bekijk op PostSimple
+                </a>
             </div>
         </div>
-        
+
         <style>
-            #postsimple-send-button .dashicons {
+            #postsimple-send-button .dashicons,
+            #postsimple-view-link .dashicons {
                 display: inline-block;
                 vertical-align: middle;
             }
@@ -321,7 +362,10 @@ class PostSimple_WordPress_Integration {
             wp_send_json_error(array('message' => 'Geen batch ID ontvangen van PostSimple.'));
             return;
         }
-        
+
+        // Save batch_id as post meta
+        update_post_meta($post_id, '_postsimple_batch_id', sanitize_text_field($data['batch_id']));
+
         // Success!
         wp_send_json_success(array(
             'batch_id' => $data['batch_id'],

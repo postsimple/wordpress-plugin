@@ -39,19 +39,17 @@
                 },
                 success: function(response) {
                     loadingDiv.hide();
-                    
+
                     if (response.success) {
                         // Show success message
                         statusMessage.html(
-                            '<strong>Gelukt!</strong> ' + response.data.message + 
-                            '<br><br>Je wordt doorverwezen naar PostSimple...'
+                            '<strong>✓ Verzonden naar PostSimple</strong>'
                         ).show();
-                        
-                        // Redirect after 2 seconds
-                        setTimeout(function() {
-                            window.open(response.data.redirect_url, '_blank');
-                            sendButton.prop('disabled', false);
-                        }, 2000);
+
+                        // Hide form, show view link
+                        $('#postsimple-form').hide();
+                        $('#postsimple-view-link').attr('href', response.data.redirect_url);
+                        $('#postsimple-success-link').show();
                     } else {
                         // Show error message
                         errorMessage.html(
