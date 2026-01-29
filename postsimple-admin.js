@@ -41,15 +41,19 @@
                     loadingDiv.hide();
 
                     if (response.success) {
-                        // Show success message
-                        statusMessage.html(
-                            '<strong>✓ Verzonden naar PostSimple</strong>'
-                        ).show();
-
-                        // Hide form, show view link
-                        $('#postsimple-form').hide();
-                        $('#postsimple-view-link').attr('href', response.data.redirect_url);
-                        $('#postsimple-success-link').show();
+                        // Replace entire meta box content with success state
+                        $('#postsimple-meta-box-content').html(
+                            '<div style="padding: 10px; margin: 10px 0; border-left: 4px solid #00a32a; background: #f0f6fc;">' +
+                                '<strong>✓ Gelukt!</strong>' +
+                                '<p style="margin: 5px 0 0 0;">' + response.data.message + '</p>' +
+                            '</div>' +
+                            '<a href="' + response.data.redirect_url + '" target="_blank" ' +
+                                'class="button button-primary button-large" ' +
+                                'style="width: 100%; text-align: center; margin-top: 10px;">' +
+                                '<span class="dashicons dashicons-external" style="margin-top: 3px;"></span> ' +
+                                'Bekijk op PostSimple' +
+                            '</a>'
+                        );
                     } else {
                         // Show error message
                         errorMessage.html(
