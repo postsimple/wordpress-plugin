@@ -19,7 +19,7 @@ if (!defined('ABSPATH')) {
 class PostSimple_WordPress_Integration {
     
     private $api_endpoint = 'https://postsimple.link/api/plugins/create-post';
-    private $postsimple_app_url = 'https://my.postsimple.app/';
+    private $postsimple_app_url = 'https://my.postsimple.app/lab';
     
     public function __construct() {
         // Add settings page
