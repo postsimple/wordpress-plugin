@@ -1,7 +1,6 @@
 <?php
 /**
  * Plugin Name: PostSimple Integration
- * Plugin URI: https://postsimple.app
  * Description: Verzend WordPress posts naar PostSimple om automatisch social media content te genereren.
  * Version: 1.0.0
  * Author: PostSimple
