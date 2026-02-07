@@ -1,4 +1,13 @@
-# PostSimple WordPress Plugin
+# PostSimple Integration
+
+**Contributors:** postsimple
+**Tags:** social media, automation, content
+**Requires at least:** 5.0
+**Tested up to:** 6.9
+**Stable tag:** 1.0.0
+**Requires PHP:** 7.2
+**License:** GPLv2 or later
+**License URI:** https://www.gnu.org/licenses/gpl-2.0.html
 
 Send your WordPress posts to PostSimple with one click to automatically generate professional social media content.
 
@@ -29,7 +38,7 @@ With this WordPress plugin, you can easily share your WordPress content with Pos
 1. Download and extract the ZIP file
 2. Upload the `postsimple-wordpress` folder to `/wp-content/plugins/`
 3. Go to **Plugins** in WordPress
-4. Activate "PostSimple WordPress Integration"
+4. Activate "PostSimple Integration"
 
 ## Configuration
 

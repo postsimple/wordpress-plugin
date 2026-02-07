@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: PostSimple WordPress Integration
+ * Plugin Name: PostSimple Integration
  * Plugin URI: https://postsimple.app
  * Description: Verzend WordPress posts naar PostSimple om automatisch social media content te genereren.
  * Version: 1.0.0
@@ -69,7 +69,7 @@ class PostSimple_WordPress_Integration {
         }
         
         // Check if settings were saved
-        if (isset($_GET['settings-updated'])) {
+        if (isset($_GET['settings-updated']) && check_admin_referer('postsimple_settings-options')) {
             add_settings_error('postsimple_messages', 'postsimple_message', 'Instellingen opgeslagen', 'updated');
         }
         
@@ -145,7 +145,7 @@ class PostSimple_WordPress_Integration {
             ?>
             <p style="color: #d63638;">
                 <strong>Let op:</strong> Stel eerst je PostSimple API key in bij
-                <a href="<?php echo admin_url('options-general.php?page=postsimple-settings'); ?>">Instellingen</a>.
+                <a href="<?php echo esc_url(admin_url('options-general.php?page=postsimple-settings')); ?>">Instellingen</a>.
             </p>
             <?php
             return;
