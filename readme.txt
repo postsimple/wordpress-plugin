@@ -3,7 +3,7 @@ Contributors: PostSimple
 Tags: social media, automation, publisher
 Requires at least: 5.0
 Tested up to: 6.9
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -90,7 +90,35 @@ Your WordPress post is not modified. The title and URL are sent to PostSimple, w
 
 No, only published posts can be sent to PostSimple. This is because PostSimple needs to access the public URL of your post to analyze its content. Make sure your post is published before sending it to PostSimple.
 
+== External services ==
+
+This plugin connects to the PostSimple API to send your WordPress post data for automatic social media content generation.
+
+= What data is sent and when =
+
+When you click the "Send to PostSimple" button in the post editor, the plugin sends the following data to the PostSimple API:
+
+* The post title
+* The public URL (permalink) of the post
+
+This data is only sent when the user explicitly clicks the "Send to PostSimple" button. No data is sent automatically or in the background.
+
+= Service details =
+
+This service is provided by PostSimple.
+
+* Service website: [https://postsimple.app](https://postsimple.app)
+* API endpoint: `https://postsimple.link/api/plugins/create-post`
+* Terms of use: [https://postsimple.app/gebruikersvoorwaarden](https://postsimple.app/gebruikersvoorwaarden)
+* Privacy policy: [https://postsimple.app/privacyverklaring](https://postsimple.app/privacyverklaring)
+
+After sending, the plugin redirects the user to PostSimple at `https://my.postsimple.app/lab` to view the generated social media content.
+
 == Changelog ==
+
+= 1.0.1 =
+* Use wp_add_inline_style() instead of inline style tag
+* Added external services documentation to readme
 
 = 1.0.0 =
 * Initial release
