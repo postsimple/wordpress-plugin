@@ -3,7 +3,7 @@ Contributors: PostSimple
 Tags: social media, automation, publisher
 Requires at least: 5.0
 Tested up to: 6.9
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -115,6 +115,10 @@ This service is provided by PostSimple.
 After sending, the plugin redirects the user to PostSimple at `https://my.postsimple.app/lab` to view the generated social media content.
 
 == Changelog ==
+
+= 1.0.2 =
+* Fixed missing version parameter in wp_register_style() call
+* Set resource versions for proper browser cache busting
 
 = 1.0.1 =
 * Use wp_add_inline_style() instead of inline style tag

@@ -2,7 +2,7 @@
 /**
  * Plugin Name: PostSimple Integration
  * Description: Verzend WordPress posts naar PostSimple om automatisch social media content te genereren.
- * Version: 1.0.1
+ * Version: 1.0.2
  * Author: PostSimple
  * Author URI: https://postsimple.app
  * License: GPL v2 or later
@@ -260,7 +260,7 @@ class PostSimple_WordPress_Integration {
             'postsimple-admin',
             plugins_url('postsimple-admin.js', __FILE__),
             array('jquery'),
-            '1.0.0',
+            '1.0.2',
             true
         );
 
@@ -271,7 +271,7 @@ class PostSimple_WordPress_Integration {
         ));
 
         // Register a handle for inline styles
-        wp_register_style('postsimple-admin', false);
+        wp_register_style('postsimple-admin', false, array(), '1.0.2');
         wp_enqueue_style('postsimple-admin');
         wp_add_inline_style('postsimple-admin', '
             #postsimple-send-button .dashicons,

@@ -4,7 +4,7 @@
 - **Tags:** social media, automation, publisher
 - **Requires at least:** 5.0
 - **Tested up to:** 6.9
-- **Stable tag:** 1.0.0
+- **Stable tag:** 1.0.2
 - **Requires PHP:** 7.2
 - **License:** GPLv2 or later
 - **License URI:** https://www.gnu.org/licenses/gpl-2.0.html
@@ -100,6 +100,14 @@ Have questions or running into issues?
 - **Support:** [https://postsimple.app/support](https://postsimple.app/support)
 
 ## Changelog
+
+### Version 1.0.2
+- Fixed missing version parameter in wp_register_style() call
+- Set resource versions for proper browser cache busting
+
+### Version 1.0.1
+- Use wp_add_inline_style() instead of inline style tag
+- Added external services documentation to readme
 
 ### Version 1.0.0
 - Initial release
